@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Local Tools</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <style>
+      /* Add a little padding below the fixed navbar */
+      body {
+        padding-top: 5rem;
+      }
+      .tool-card {
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      }
+      .tool-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      }
+      #tool-container iframe {
+        width: 100%;
+        /* Calculate height dynamically based on viewport, minus navbar and padding */
+        height: calc(
+          100vh - 6rem
+        ); /* Adjust 6rem based on navbar height + padding */
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <nav
+      class="navbar navbar-expand-lg fixed-top bg-body-tertiary border-bottom"
+    >
+      <div class="container-fluid">
+        <a
+          class="navbar-brand"
+          href="#"
+          onclick="showToolList(); return false;"
+        >
+          <i class="bi bi-tools me-2"></i>Local Tools
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                id="theme-toggler"
+                title="Toggle Theme"
+              >
+                <i class="bi bi-sun-fill"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container py-4">
+      <div id="tool-list-container">
+        <h1 class="mb-4 text-center">Available Tools</h1>
+        <div
+          id="tool-list"
+          class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"
+        ></div>
+      </div>
+      <div id="tool-container" style="display: none"></div>
+    </main>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      const toolListContainer = document.getElementById("tool-list-container");
+      const toolListDiv = document.getElementById("tool-list");
+      const toolContainerDiv = document.getElementById("tool-container");
+      const themeToggler = document.getElementById("theme-toggler");
+      const currentTheme = localStorage.getItem("theme")
+        ? localStorage.getItem("theme")
+        : "light";
+      const htmlElement = document.documentElement;
+
+      function applyTheme(theme) {
+        htmlElement.setAttribute("data-bs-theme", theme);
+        themeToggler.innerHTML =
+          theme === "dark"
+            ? '<i class="bi bi-moon-stars-fill"></i>'
+            : '<i class="bi bi-sun-fill"></i>';
+        localStorage.setItem("theme", theme);
+
+        // Also update the iframe if it exists
+        const iframe = toolContainerDiv.querySelector("iframe");
+        if (iframe && iframe.contentWindow) {
+          iframe.contentWindow.postMessage(
+            { type: "setTheme", theme: theme },
+            "*"
+          );
+        }
+      }
+
+      function toggleTheme() {
+        const newTheme =
+          htmlElement.getAttribute("data-bs-theme") === "dark"
+            ? "light"
+            : "dark";
+        applyTheme(newTheme); // This will call applyTheme which now handles the iframe update
+      }
+
+      async function loadToolList() {
+        try {
+          const response = await fetch("/api/tools");
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const tools = await response.json();
+
+          toolListDiv.innerHTML = "";
+          if (tools.length === 0) {
+            toolListDiv.innerHTML =
+              '<div class="col-12"><div class="alert alert-info">No tools available.</div></div>';
+            return;
+          }
+
+          tools.forEach((tool) => {
+            const colDiv = document.createElement("div");
+            colDiv.classList.add("col");
+
+            const cardDiv = document.createElement("div");
+            cardDiv.classList.add("card", "h-100", "tool-card", "shadow-sm");
+            cardDiv.setAttribute("data-tool-id", tool.id);
+            cardDiv.addEventListener("click", () => loadTool(tool.id));
+
+            const cardBodyDiv = document.createElement("div");
+            cardBodyDiv.classList.add(
+              "card-body",
+              "d-flex",
+              "flex-column",
+              "align-items-center",
+              "text-center"
+            );
+
+            const iconEl = document.createElement("i");
+            iconEl.classList.add(
+              "bi",
+              tool.icon || "bi-gear-wide-connected",
+              "fs-1",
+              "mb-3",
+              "text-primary"
+            );
+
+            const titleEl = document.createElement("h5");
+            titleEl.classList.add("card-title");
+            titleEl.textContent = tool.name;
+
+            const descriptionEl = document.createElement("p");
+            descriptionEl.classList.add("card-text", "text-muted", "small");
+            descriptionEl.textContent = tool.description;
+
+            cardBodyDiv.appendChild(iconEl);
+            cardBodyDiv.appendChild(titleEl);
+            cardBodyDiv.appendChild(descriptionEl);
+            cardDiv.appendChild(cardBodyDiv);
+            colDiv.appendChild(cardDiv);
+            toolListDiv.appendChild(colDiv);
+          });
+        } catch (error) {
+          console.error("Error loading tools:", error);
+          toolListDiv.innerHTML =
+            '<div class="col-12"><div class="alert alert-danger">Failed to load tools. Check console for details.</div></div>';
+        }
+      }
+
+      function loadTool(toolId) {
+        try {
+          toolListContainer.style.display = "none";
+          toolContainerDiv.innerHTML = "";
+          toolContainerDiv.style.display = "block";
+
+          const iframe = document.createElement("iframe");
+          iframe.src = `/tools/${toolId}`;
+          iframe.title = `Tool: ${toolId}`; // Added title for accessibility
+          // Send theme message after iframe loads
+          iframe.onload = () => {
+            const currentTheme = htmlElement.getAttribute("data-bs-theme");
+            if (iframe.contentWindow) {
+              iframe.contentWindow.postMessage(
+                { type: "setTheme", theme: currentTheme },
+                "*"
+              );
+            }
+          };
+          toolContainerDiv.appendChild(iframe);
+        } catch (error) {
+          console.error(`Error loading tool ${toolId}:`, error);
+          toolContainerDiv.innerHTML = `<div class="alert alert-danger">Failed to load tool: ${toolId}. ${error.message}</div>`;
+          toolContainerDiv.style.display = "block";
+          toolListContainer.style.display = "block"; // Show list again on error
+        }
+      }
+
+      function showToolList() {
+        toolContainerDiv.style.display = "none";
+        toolContainerDiv.innerHTML = ""; // Clear iframe
+        toolListContainer.style.display = "block";
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        applyTheme(currentTheme); // Apply saved theme on load
+        themeToggler.addEventListener("click", (e) => {
+          e.preventDefault();
+          toggleTheme();
+        });
+        loadToolList();
+      });
+    </script>
+  </body>
+</html>

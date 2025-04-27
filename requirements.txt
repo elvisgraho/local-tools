@@ -1,0 +1,6 @@
+Flask==2.1.0
+Werkzeug>=2.0.0,<2.2.0
+yt-dlp
+requests
+Pillow>=9.0.0
+pdf2image>=1.16.0

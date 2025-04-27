@@ -1,0 +1,161 @@
+/* Basic reset and body styling */
+body {
+  font-family: sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 20px;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+header h1 {
+  margin-top: 0;
+  color: #333;
+}
+
+nav a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+main {
+  margin-bottom: 20px;
+}
+
+footer {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+  font-size: 0.9em;
+  color: #777;
+}
+
+/* Basic form styling (will be enhanced by components) */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+.form-group textarea {
+  resize: vertical; /* Allow vertical resizing */
+}
+
+button {
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Basic error display styling */
+.error-message {
+  color: #dc3545;
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #dc3545;
+  background-color: #f8d7da;
+  border-radius: 4px;
+  display: none; /* Hidden by default */
+}
+
+/* Basic info section styling */
+.video-info {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.video-info img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.video-info h5 {
+  margin-top: 0;
+}
+
+/* Basic status section styling */
+.status-section {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.progress-bar-container {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden; /* Ensure the bar stays within bounds */
+  margin-bottom: 10px;
+  display: none; /* Hidden by default */
+}
+
+.progress-bar {
+  height: 20px;
+  background-color: #28a745; /* Green for success */
+  width: 0%;
+  text-align: center;
+  line-height: 20px;
+  color: white;
+  transition: width 0.3s ease;
+}
+
+.progress-bar.error {
+  background-color: #dc3545; /* Red for error */
+}
+
+.status-text {
+  text-align: center;
+  font-size: 0.9em;
+  color: #555;
+}

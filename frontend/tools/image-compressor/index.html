@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Compressor</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <!-- Local Styles -->
+    <link rel="stylesheet" href="/frontend/tools/image-compressor/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Image Compressor</h1>
+      <p>Compress PNG or JPG/JPEG files to reduce their size.</p>
+      <p>Supported Formats: PNG, JPG, JPEG</p>
+
+      <form id="upload-form" enctype="multipart/form-data">
+        <div id="drop-area">
+          <p>Drag & drop your image file here, or click to select file.</p>
+          <input type="file" id="file-input" accept=".png,.jpg,.jpeg" />
+          <p id="file-name-display"></p>
+        </div>
+
+        <div class="options" id="quality-option">
+          <label for="quality">JPG Quality (1-95):</label>
+          <input
+            type="number"
+            id="quality"
+            name="quality"
+            value="85"
+            min="1"
+            max="95"
+          />
+          <small>(Ignored for PNG)</small>
+        </div>
+
+        <button type="submit" id="submit-button">Compress Image</button>
+      </form>
+
+      <div id="status-area">
+        <p id="status-message"></p>
+        <a id="download-link" style="display: none">Download Compressed File</a>
+      </div>
+      <div id="error-area" class="error-message" style="display: none"></div>
+    </div>
+
+    <!-- Local Script -->
+    <script src="/frontend/tools/image-compressor/script.js"></script>
+  </body>
+</html>

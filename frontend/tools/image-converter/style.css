@@ -1,0 +1,145 @@
+body {
+  font-family: sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 1rem; /* Reduced padding to match other tools */
+  background-color: transparent; /* Allow parent theme background */
+  color: #333; /* Base color, Bootstrap variables will override in dark mode */
+}
+
+.container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+#drop-area {
+  border: 2px dashed #ccc;
+  border-radius: 5px;
+  padding: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+  background-color: #fafafa;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+#drop-area.highlight {
+  border-color: #007bff;
+  background-color: #e9f5ff;
+}
+
+#drop-area p {
+  margin: 0;
+  color: #666;
+}
+
+#file-input {
+  display: none; /* Hide the default file input */
+}
+
+#file-name-display {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #555;
+}
+
+.options {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+label {
+  font-weight: bold;
+}
+
+select,
+input[type="number"],
+input[type="text"] {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex-grow: 1; /* Allow input/select to take available space */
+}
+
+button[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+button[type="submit"]:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+#status-area {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #e9f5ff;
+  border: 1px solid #b3d7ff;
+  border-radius: 4px;
+  text-align: center;
+}
+
+#status-message {
+  margin: 0 0 10px 0;
+  font-weight: bold;
+}
+
+#download-link {
+  display: inline-block;
+  padding: 8px 15px;
+  background-color: #28a745;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+#download-link:hover {
+  background-color: #218838;
+}
+
+.error-message {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}

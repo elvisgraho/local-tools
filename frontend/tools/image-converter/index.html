@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Converter</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <!-- Local Styles -->
+    <link rel="stylesheet" href="/frontend/tools/image-converter/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Image Converter</h1>
+      <p>Convert PDF, PNG, JPG/JPEG files to PNG or JPG.</p>
+      <p>Supported Inputs: PDF, PNG, JPG, JPEG</p>
+      <p>Supported Outputs: PNG, JPG</p>
+
+      <form id="upload-form" enctype="multipart/form-data">
+        <div id="drop-area">
+          <p>Drag & drop your image file here, or click to select file.</p>
+          <input type="file" id="file-input" accept=".pdf,.png,.jpg,.jpeg" />
+          <p id="file-name-display"></p>
+        </div>
+
+        <div class="options">
+          <label for="output-format">Convert to:</label>
+          <select id="output-format" name="output_format">
+            <option value="png" selected>PNG</option>
+            <option value="jpg">JPG</option>
+          </select>
+        </div>
+
+        <button type="submit" id="submit-button">Convert Image</button>
+      </form>
+
+      <div id="status-area">
+        <p id="status-message"></p>
+        <a id="download-link" style="display: none">Download Converted File</a>
+      </div>
+      <div id="error-area" class="error-message" style="display: none"></div>
+    </div>
+
+    <!-- Local Script -->
+    <script src="/frontend/tools/image-converter/script.js"></script>
+  </body>
+</html>

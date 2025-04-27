@@ -17,11 +17,9 @@ Currently includes the following tools:
 1.  **Clone the repository:**
 
     ```bash
-    git clone <repository_url>
+    git clone https://github.com/elvisgraho/local-tools
     cd local-tools
     ```
-
-    (Replace `<repository_url>` with the actual repository URL)
 
 2.  **Install Dependencies:**
     Ensure you have Python 3.9+ installed.
